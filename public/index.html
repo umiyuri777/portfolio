@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Echo HTML Sample</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+        margin: 0; padding: 2rem; line-height: 1.6;
+        display: grid; place-items: center; min-height: 100dvh;
+        background: radial-gradient(1200px 600px at 10% 10%, rgba(120, 120, 255, 0.12), transparent),
+                   radial-gradient(1200px 600px at 90% 90%, rgba(120, 255, 180, 0.12), transparent);
+      }
+      .card {
+        max-width: 720px; width: 100%;
+        border-radius: 16px; padding: 2rem;
+        border: 1px solid color-mix(in oklab, CanvasText 12%, transparent);
+        background: color-mix(in oklab, Canvas 92%, CanvasText 2%);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      }
+      h1 { margin-top: 0; font-weight: 800; letter-spacing: .02em; }
+      code { padding: .2em .4em; border-radius: 6px; background: color-mix(in oklab, CanvasText 8%, transparent); }
+      a { color: inherit; }
+      .muted { opacity: .72; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>こんにちは！umiyuri777です</h1>
+      <p>
+        このページはテストで作成したページです。
+      </p>
+      <p>
+        <a href="https://github.com/umiyuri777">GitHub</a>
+      </p>
+      <ul>
+        <li>ヘルスチェック: <code>/healthz</code> で <code>ok</code> を返します。</li>
+        <li>静的ファイル: <code>/static</code> プレフィックスで <code>public/</code> を配信します。</li>
+      </ul>
+    </main>
+  </body>
+  </html>
+
+

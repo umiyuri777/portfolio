@@ -1,0 +1,20 @@
+# VCS
+.git
+.gitignore
+
+# Editors/OS
+.DS_Store
+.idea
+.vscode
+
+# Go build cache/artifacts
+bin
+build
+dist
+*.out
+
+# Node (in case this repo has front-ends)
+node_modules
+*.log
+
+
