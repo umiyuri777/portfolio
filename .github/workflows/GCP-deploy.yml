@@ -26,7 +26,7 @@ jobs:
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/15874071925/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-pool'
+          workload_identity_provider: 'projects/15874071925/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions'
           service_account: terraform@portfolio-477702.iam.gserviceaccount.com
 
       - name: Set up Cloud SDK
@@ -43,7 +43,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest \
-            -f portfolio/Dockerfile \
+            -f Dockerfile \
             ./portfolio
           docker push ${IMAGE_NAME}:${IMAGE_TAG}
           docker push ${IMAGE_NAME}:latest
@@ -54,4 +54,4 @@ jobs:
             --image ${IMAGE_NAME}:${IMAGE_TAG} \
             --platform managed \
             --region ${GCP_REGION} \
-            --allow-unauthenticated \
+            --allow-unauthenticated
