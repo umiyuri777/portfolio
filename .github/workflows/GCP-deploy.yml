@@ -31,6 +31,8 @@ jobs:
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
 
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
@@ -54,4 +56,5 @@ jobs:
             --image ${IMAGE_NAME}:${IMAGE_TAG} \
             --platform managed \
             --region ${GCP_REGION} \
+            --project ${GCP_PROJECT_ID} \
             --allow-unauthenticated
