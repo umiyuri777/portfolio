@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ .Handle }} ~ portfolio</title>
+    <meta
+      name="description"
+      content="{{ .Handle }} のポートフォリオ / レジュメ - {{ .Headline }}"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="window" aria-label="terminal">
+      <div class="window__titlebar" aria-hidden="true">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+        <span class="window__title">
+          {{ .Handle }}@portfolio: ~/resume — zsh
+        </span>
+      </div>
+
+      <div class="window__body">
+        <header class="hero">
+          <h1 class="hero__handle">{{ .Handle }}</h1>
+          <p class="hero__headline">{{ .Headline }}</p>
+          <p class="hero__updated">last_updated: {{ .UpdatedAt }}</p>
+        </header>
+
+        <section class="section" aria-labelledby="sec-summary">
+          <p class="prompt" id="sec-summary">
+            <span class="prompt__user">{{ .Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">cat</span>
+            <span class="prompt__flag">summary.md</span>
+          </p>
+          <ul class="summary">
+            {{ range .Summary }}
+            <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="sec-edu">
+          <p class="prompt" id="sec-edu">
+            <span class="prompt__user">{{ .Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">tail</span>
+            <span class="prompt__flag">-n +1</span>
+            <span class="prompt__cmd">education.log</span>
+          </p>
+          <ul class="timeline">
+            {{ range .Education }}
+            <li class="timeline__item">
+              <span class="timeline__when">{{ .When }}</span>
+              <div>
+                <span class="timeline__title">{{ .Title }}</span>
+                {{ if .Notes }}
+                <ul class="timeline__notes">
+                  {{ range .Notes }}<li>{{ . }}</li>{{ end }}
+                </ul>
+                {{ end }}
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="sec-exp">
+          <p class="prompt" id="sec-exp">
+            <span class="prompt__user">{{ .Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">git log</span>
+            <span class="prompt__flag">--pretty=experience</span>
+          </p>
+          <ul class="timeline">
+            {{ range .Experience }}
+            <li class="timeline__item">
+              <span class="timeline__when">{{ .When }}</span>
+              <div>
+                <span class="timeline__title">{{ .Title }}</span>
+                {{ if .Notes }}
+                <ul class="timeline__notes">
+                  {{ range .Notes }}<li>{{ . }}</li>{{ end }}
+                </ul>
+                {{ end }}
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="sec-projects">
+          <p class="prompt" id="sec-projects">
+            <span class="prompt__user">{{ .Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">ls</span>
+            <span class="prompt__flag">-la</span>
+            <span class="prompt__cmd">projects/</span>
+          </p>
+          <div class="projects">
+            {{ range .Projects }}
+            <article class="project">
+              <h3 class="project__name">{{ .Name }}</h3>
+              <p class="project__desc">{{ .Description }}</p>
+              <a
+                class="project__repo"
+                href="{{ .Repo }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ .Repo }}</a
+              >
+            </article>
+            {{ end }}
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="sec-skills">
+          <p class="prompt" id="sec-skills">
+            <span class="prompt__user">{{ .Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">cat</span>
+            <span class="prompt__flag">skills.json</span>
+          </p>
+          {{ range .Skills }}
+          <div class="skill-group">
+            <h3 class="skill-group__title">{{ .Category }}</h3>
+            {{ range .Items }}
+            <div class="skill">
+              <span class="skill__name">{{ .Name }}</span>
+              <span
+                class="skill__bar"
+                aria-label="proficiency {{ .Level }} of 5"
+                title="{{ .Level }}/5"
+                >{{ skillBar .Level }}</span
+              >
+              {{ if .Detail }}
+              <span class="skill__detail">{{ .Detail }}</span>
+              {{ else }}
+              <span class="skill__detail">&nbsp;</span>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+          {{ end }}
+        </section>
+
+        <section class="section" aria-labelledby="sec-links">
+          <p class="prompt" id="sec-links">
+            <span class="prompt__user">{{ .Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">curl</span>
+            <span class="prompt__flag">-L</span>
+            <span class="prompt__cmd">contact.txt</span>
+          </p>
+          <ul class="links">
+            {{ range .Links }}
+            <li>
+              <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer"
+                >{{ .Label }}</a
+              >
+            </li>
+            {{ end }}
+          </ul>
+        </section>
+
+        <footer class="footer">
+          <span># EOF — thanks for reading!</span>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

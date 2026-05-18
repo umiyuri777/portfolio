@@ -16,7 +16,7 @@ COPY . .
 
 # Build static binary
 ENV CGO_ENABLED=0
-RUN go build -o /server ./main.go
+RUN go build -o /server .
 
 # 2) Run stage
 FROM alpine:3.20

@@ -1,0 +1,423 @@
+/* ===========================================================================
+ * Terminal-themed portfolio styles
+ *
+ * 配色は「ダークターミナル + シンタックスハイライト」の世界観に寄せている。
+ * カラーは CSS Custom Property で集約し、テーマ変更を1箇所で完結させている。
+ * =========================================================================== */
+
+:root {
+  /* Background layers */
+  --bg: #0b0e14;
+  --bg-window: #11151c;
+  --bg-prompt: #0d1219;
+  --border: #1f2733;
+  --border-strong: #2a3340;
+
+  /* Foregrounds */
+  --fg: #c9d1d9;
+  --fg-muted: #6e7889;
+  --fg-dim: #4a5466;
+
+  /* Accents */
+  --accent-green: #7ce38b;
+  --accent-cyan: #79c0ff;
+  --accent-yellow: #e3b341;
+  --accent-pink: #ff7b72;
+  --accent-purple: #d2a8ff;
+
+  /* Traffic light dots */
+  --dot-red: #ff5f56;
+  --dot-yellow: #ffbd2e;
+  --dot-green: #27c93f;
+
+  /* Layout */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --gap: 1rem;
+  --content-max: 960px;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code",
+    "Source Code Pro", "Menlo", "Consolas", "Noto Sans Mono CJK JP",
+    "Noto Sans JP", monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100dvh;
+  /* 軽いスキャンライン: 派手にしないために透明度を抑え目にしている */
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.014) 50%,
+    rgba(0, 0, 0, 0.014) 50%
+  );
+  background-size: 100% 3px;
+  padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+a:hover {
+  border-bottom-color: var(--accent-cyan);
+  color: var(--accent-green);
+}
+
+::selection {
+  background: rgba(124, 227, 139, 0.25);
+  color: var(--fg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Terminal window frame
+ * ------------------------------------------------------------------------- */
+
+.window {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  background: var(--bg-window);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(124, 227, 139, 0.04) inset;
+  overflow: hidden;
+}
+
+.window__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1rem;
+  background: linear-gradient(180deg, #1a212c 0%, #141a23 100%);
+  border-bottom: 1px solid var(--border-strong);
+  user-select: none;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot--red {
+  background: var(--dot-red);
+}
+.dot--yellow {
+  background: var(--dot-yellow);
+}
+.dot--green {
+  background: var(--dot-green);
+}
+
+.window__title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+}
+
+.window__body {
+  padding: 1.5rem clamp(1rem, 3vw, 2rem) 2rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Prompt / sections
+ * ------------------------------------------------------------------------- */
+
+.section {
+  margin: 1.6rem 0 2.2rem;
+}
+
+.prompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.prompt__user {
+  color: var(--accent-green);
+}
+.prompt__at {
+  color: var(--fg-muted);
+}
+.prompt__host {
+  color: var(--accent-cyan);
+}
+.prompt__path {
+  color: var(--accent-yellow);
+}
+.prompt__sigil {
+  color: var(--accent-pink);
+  font-weight: 700;
+}
+.prompt__cmd {
+  color: var(--fg);
+}
+.prompt__flag {
+  color: var(--accent-purple);
+}
+
+/* ---------------------------------------------------------------------------
+ * Hero block
+ * ------------------------------------------------------------------------- */
+
+.hero {
+  padding: 0.5rem 0 1.2rem;
+}
+
+.hero__handle {
+  display: inline-block;
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  margin: 0;
+  color: var(--accent-green);
+  letter-spacing: 0.02em;
+}
+
+.hero__handle::before {
+  content: "$ ";
+  color: var(--fg-muted);
+}
+
+.hero__headline {
+  margin: 0.4rem 0 0;
+  color: var(--fg);
+}
+
+.hero__updated {
+  margin-top: 0.5rem;
+  color: var(--fg-dim);
+  font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Summary list
+ * ------------------------------------------------------------------------- */
+
+.summary {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: none;
+}
+.summary li {
+  position: relative;
+  margin-bottom: 0.4rem;
+}
+.summary li::before {
+  content: "›";
+  position: absolute;
+  left: -1.1rem;
+  color: var(--accent-pink);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------------
+ * Timeline (education / experience)
+ * ------------------------------------------------------------------------- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px dashed var(--border);
+}
+.timeline__item:first-child {
+  border-top: none;
+}
+
+.timeline__when {
+  color: var(--accent-yellow);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline__title {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.timeline__notes {
+  margin: 0.3rem 0 0;
+  padding-left: 1.1rem;
+  list-style: none;
+}
+.timeline__notes li {
+  position: relative;
+  color: var(--fg-muted);
+  font-size: 0.92rem;
+}
+.timeline__notes li::before {
+  content: "→";
+  position: absolute;
+  left: -1rem;
+  color: var(--accent-cyan);
+}
+
+@media (max-width: 600px) {
+  .timeline__item {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Project cards
+ * ------------------------------------------------------------------------- */
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.project {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--bg-prompt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+.project:hover {
+  border-color: var(--accent-green);
+  transform: translateY(-1px);
+}
+
+.project__name {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+  color: var(--accent-green);
+}
+.project__name::before {
+  content: "// ";
+  color: var(--fg-dim);
+}
+
+.project__desc {
+  margin: 0.2rem 0 0.8rem;
+  color: var(--fg);
+  font-size: 0.92rem;
+  flex-grow: 1;
+}
+
+.project__repo {
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+  word-break: break-all;
+}
+.project__repo::before {
+  content: "$ git clone ";
+  color: var(--fg-dim);
+}
+
+/* ---------------------------------------------------------------------------
+ * Skill bars
+ * ------------------------------------------------------------------------- */
+
+.skill-group {
+  margin-bottom: 1.1rem;
+}
+
+.skill-group__title {
+  margin: 0 0 0.5rem;
+  color: var(--accent-purple);
+  font-size: 0.92rem;
+}
+.skill-group__title::before {
+  content: "[";
+  color: var(--fg-dim);
+}
+.skill-group__title::after {
+  content: "]";
+  color: var(--fg-dim);
+}
+
+.skill {
+  display: grid;
+  grid-template-columns: 140px 110px 1fr;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.25rem 0;
+}
+
+.skill__name {
+  color: var(--fg);
+}
+
+.skill__bar {
+  font-family: inherit;
+  letter-spacing: 0.15em;
+  color: var(--accent-green);
+}
+.skill__bar .skill__bar-empty {
+  color: var(--fg-dim);
+}
+
+.skill__detail {
+  color: var(--fg-muted);
+  font-size: 0.86rem;
+}
+
+@media (max-width: 600px) {
+  .skill {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Links / contact
+ * ------------------------------------------------------------------------- */
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+}
+.links li::before {
+  content: "$ open ";
+  color: var(--fg-dim);
+}
+
+.footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+  color: var(--fg-dim);
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
