@@ -157,6 +157,8 @@ func BuildResume() Resume {
 				Items: []Skill{
 					{Name: "Go", Level: 3, Detail: "サークルやハッカソンでのバックエンド開発経験"},
 					{Name: "Python", Level: 3, Detail: "競技プログラミング、Flask/FastAPIでのAPI作成"},
+					{Name: "GCP", Level: 3, Detail: "Google Cloud Platformを用いたサーバー構築経験"},
+					{Name: "AWS", Level: 3, Detail: "インターンでのAWSを用いたサーバー構築経験"},
 					{Name: "Unity (C#)", Level: 3, Detail: "ゲーム制作経験。アルバイトで中高生への指導経験あり"},
 					{Name: "Flutter (Dart)", Level: 2, Detail: "サークルでのアプリ制作経験"},
 					{Name: "C", Level: 2, Detail: "大学の授業"},
