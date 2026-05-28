@@ -1,5 +1,5 @@
 # Portfolio
-github pagesでデプロイしてます  
+GCPでデプロイしてます  
 https://portfolio-15874071925.asia-northeast1.run.app/
 
 以下のドメインでもアクセスできます  
