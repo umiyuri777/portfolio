@@ -76,7 +76,7 @@ func BuildResume() Resume {
 		},
 
 		Education: []TimelineItem{
-			{When: "2022.04", Title: "京都成章高校 卒業"},
+			{When: "2022.03", Title: "京都成章高校 卒業"},
 			{When: "2022.04", Title: "立命館大学 情報理工学部 入学"},
 			{When: "2026.03", Title: "立命館大学 情報理工学部 卒業"},
 			{When: "2026.04", Title: "立命館大学院 情報理工学研究科 入学"},
