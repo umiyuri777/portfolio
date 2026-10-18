@@ -8,6 +8,10 @@ services:
       dockerfile: Dockerfile
     environment:
       - PORT=8080
+      # シェルか .env から渡す。未設定なら Spotify セクションは表示されない
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID:-}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET:-}
+      - SPOTIFY_REFRESH_TOKEN=${SPOTIFY_REFRESH_TOKEN:-}
     ports:
       - "8080:8080"
     restart: unless-stopped

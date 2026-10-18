@@ -2,6 +2,9 @@
 .git
 .gitignore
 
+# Secrets (Spotify credentials for local runs)
+.env
+
 # Editors/OS
 .DS_Store
 .idea
