@@ -163,6 +163,60 @@
           {{ end }}
         </section>
 
+        {{ with .Spotify }}
+        <section class="section" aria-labelledby="sec-spotify">
+          <p class="prompt" id="sec-spotify">
+            <span class="prompt__user">{{ $.Handle }}</span
+            ><span class="prompt__at">@</span
+            ><span class="prompt__host">portfolio</span
+            ><span class="prompt__path">:~/resume</span>
+            <span class="prompt__sigil">$</span>
+            <span class="prompt__cmd">spotify top</span>
+            <span class="prompt__flag">--range</span>
+          </p>
+          <!-- JSを使わずにタブ切り替えするため、radio の :checked で表示パネルを切り替える -->
+          <div class="spotify">
+            {{ range $i, $r := .Ranges }}
+            <input
+              class="spotify__radio spotify__radio--{{ $r.Key }}"
+              type="radio"
+              name="spotify-range"
+              id="spotify-{{ $r.Key }}"
+              {{ if eq $i 0 }}checked{{ end }}
+            />
+            {{ end }}
+            <div class="spotify__tabs">
+              {{ range .Ranges }}
+              <label
+                class="spotify__tab spotify__tab--{{ .Key }}"
+                for="spotify-{{ .Key }}"
+                >{{ .Label }}</label
+              >
+              {{ end }}
+            </div>
+            {{ range .Ranges }}
+            <div class="spotify__panel spotify__panel--{{ .Key }}">
+              <div>
+                <h3 class="spotify__heading">top artists</h3>
+                {{ template "spotify-items" .Artists }}
+              </div>
+              <div>
+                <h3 class="spotify__heading">top tracks</h3>
+                {{ template "spotify-items" .Tracks }}
+              </div>
+            </div>
+            {{ end }}
+          </div>
+          <p class="spotify__meta">
+            source:
+            <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer"
+              >Spotify</a
+            >
+            / fetched_at: {{ jst .FetchedAt }}
+          </p>
+        </section>
+        {{ end }}
+
         <section class="section" aria-labelledby="sec-links">
           <p class="prompt" id="sec-links">
             <span class="prompt__user">{{ .Handle }}</span
@@ -192,3 +246,42 @@
     </main>
   </body>
 </html>
+
+{{ define "spotify-items" }}
+{{ if . }}
+<ol class="spotify__items">
+  {{ range $i, $item := . }}
+  <li class="spotify__item">
+    <span class="spotify__rank">{{ rank $i }}</span>
+    {{ if .ImageURL }}
+    <img
+      class="spotify__art"
+      src="{{ .ImageURL }}"
+      alt=""
+      width="40"
+      height="40"
+      loading="lazy"
+    />
+    {{ else }}
+    <span class="spotify__art" aria-hidden="true"></span>
+    {{ end }}
+    <span class="spotify__text">
+      <a
+        class="spotify__name"
+        href="{{ .URL }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="{{ .Name }}"
+        >{{ .Name }}</a
+      >
+      {{ if .Subtitle }}
+      <span class="spotify__sub" title="{{ .Subtitle }}">{{ .Subtitle }}</span>
+      {{ end }}
+    </span>
+  </li>
+  {{ end }}
+</ol>
+{{ else }}
+<p class="spotify__empty"># no data yet</p>
+{{ end }}
+{{ end }}
